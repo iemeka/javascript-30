@@ -57,12 +57,12 @@
 
 <script>
     function playSound(e){
-        const AUDIO = document.querySelector(`audio[data-key="${e.keyCode}"]`);
-        const KEY = document.querySelector(`.key[data-key="${e.keyCode}"]`);
-        if (!AUDIO) return;
-        AUDIO.currentTime = 0 // rewinding to the start/point 
-        AUDIO.play();
-        KEY.classList.add("playing");
+        const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+        const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+        if (!audio) return;
+        audio.currentTime = 0 // rewinding to the start/point 
+        audio.play();
+        key.classList.add("playing");
     }
  
     function removeTransition(e){
@@ -70,8 +70,8 @@
         this.classList.remove('playing')
     }
 
-    const KEYS = document.querySelectorAll('.key');
-    KEYS.forEach(key => key.addEventListener('transitionend',removeTransition));
+    const keys = document.querySelectorAll('.key');
+    keys.forEach(key => key.addEventListener('transitionend',removeTransition));
     window.addEventListener('keydown', playSound);
 </script>
 </body>
