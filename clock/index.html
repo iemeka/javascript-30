@@ -86,8 +86,8 @@
         minuteHand.style.transform = `rotate(${minDeg}deg)`;
         hourHand.style.transform = `rotate(${hoursDeg}deg)`;
     }
-
-    setInterval(setDate, 1000);
+    const CLOCK_DELAY_MS = 1000; // add this after line 76
+    setInterval(setDate, CLOCK_DELAY_MS);
 
   </script>
 </body>
