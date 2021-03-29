@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="Keys">
+    <div class="keys">
         <div data-key="65" class="key">
             <kbd>A</kbd>
             <span class="sound">clap</span>
@@ -56,6 +56,8 @@
     <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+    const keys = document.querySelector('.keys');
+    
     function playSound(e){
         const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
         const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
@@ -67,11 +69,11 @@
  
     function removeTransition(e){
         if (e.propertyName !== 'transform') return;
-        this.classList.remove('playing')
+        e.target.classList.remove('playing')
     }
 
-    const keys = document.querySelectorAll('.key');
-    keys.forEach(key => key.addEventListener('transitionend',removeTransition));
+    keys.addEventListener('transitionend', removeTransition)
+
     window.addEventListener('keydown', playSound);
 </script>
 </body>
