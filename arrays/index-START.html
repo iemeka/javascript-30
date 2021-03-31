@@ -39,16 +39,14 @@
     // 1. Filter the list of inventors for those who were born in the 1500's
     function arrayFilter(){
       const fifteenLong = inventors.filter(function(inventor){
-      if (inventor.year >= 1500 && inventor.year <=1599){
-        return true; // keep
-      }
+      return inventor.year >= 1500 && inventor.year <=1599 ;
       });
 
       const fifteenShort = inventors.filter(inventor => inventor.year >= 1500 && inventor.year <=1599); // implicit return
 
       console.table(fifteenLong);
     }
-    // arrayFilter();
+    arrayFilter();
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
@@ -119,7 +117,7 @@
       });
       console.log(alpha);
     }
-    arraySort3()
+    // arraySort3()
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
