@@ -46,7 +46,7 @@
 
       console.table(fifteenLong);
     }
-    arrayFilter();
+    // arrayFilter();
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
@@ -125,7 +125,7 @@
     
     function arrayReduce2(){
       const transportation = data.reduce(function(obj, item){
-        if (!obj[item]){
+        if (!obj.hasOwnProperty(item)){
           obj[item] = 0;
         }
         obj[item]++;
@@ -133,7 +133,7 @@
       },{});
       console.log(transportation);
     }
-    // arrayReduce2()
+    arrayReduce2()
 
 
   </script>
