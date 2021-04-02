@@ -125,13 +125,13 @@
     const panels = document.querySelector(".panels");
 
     function toggleOpen(e){
-      var targetPanel = e.path[0].tagName === "DIV" ? e.path[0] : e.path[1]
+      const targetPanel = e.path[0].tagName === "DIV" ? e.path[0] : e.path[1]
       targetPanel.classList.toggle('open');
     }
 
     function toggleActive(e){
       if (e.propertyName.includes('flex')){
-        let targetPanel = e.path[0].tagName === "DIV" ? e.path[0] : e.path[1]
+        const targetPanel = e.path[0].tagName === "DIV" ? e.path[0] : e.path[1]
         targetPanel.classList.toggle('open-active');
       }
     }
