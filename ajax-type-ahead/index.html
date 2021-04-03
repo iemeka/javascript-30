@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Type Ahead 👀</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <form class="search-form">
+    <input type="text" class="search" placeholder="City or State">
+    <ul class="suggestions">
+      <li>Filter for a city</li>
+      <li>or a state</li>
+    </ul>
+  </form>
+<script>
+
+async function fetchCities (){
+  const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+  const cities = await fetch(endpoint);
+  return cities.json();
+}
+
+function findMatches(wordToMatch, cities){
+  return cities.filter(place => {
+    const regex = new RegExp(wordToMatch,'gi'); 
+    return place.city.match(regex) || place.state.match(regex);
+  });
+}
+
+function generateHTML(cities){
+  const entry = cities.map((city) => {
+    return `<li><span>${city.city}</span><span>${city.state}</span><span>${city.population}</span></li>`;
+  });
+  return entry.join("");
+}
+
+function render(target, htmlContent){
+  if (target.innerHTML === htmlContent) return ;
+  target.innerHTML = htmlContent;
+}
+
+function generateResult(){
+  const cache = new Map();
+  return (text, cities) => {
+    if (cache.has(text)) {
+      return cache.get(text);
+    }
+    const matches = findMatches(text, cities);
+    const htmlContent = generateHTML(matches);
+    cache.set(text, htmlContent);
+    return htmlContent;
+  }
+}
+
+(async function(){
+  const cities = await fetchCities();
+  const searchInput = document.querySelector('.search');
+  const displayTarget = document.querySelector('.suggestions');
+  const htmlContent = generateResult();
+
+  searchInput.addEventListener('keyup', (e) => {
+    const text = event.target.value;
+
+    if (text.length < 2) return;
+    
+    render(displayTarget, htmlContent(text, cities));
+  });
+})();
+ 
+</script>  
+</body>
+</html>
