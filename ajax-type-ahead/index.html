@@ -15,49 +15,60 @@
     </ul>
   </form>
 <script>
-const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
-const cities = [];
 
-fetch(endpoint)
-  .then(blob => blob.json())
-  .then(data => cities.push(...data))
-
+async function fetchCities (){
+  const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+  const cities = await fetch(endpoint);
+  return cities.json();
+}
 
 function findMatches(wordToMatch, cities){
   return cities.filter(place => {
-    //puting a variable in a regular expression
-    // g- global entire string. I - not case sensitive
     const regex = new RegExp(wordToMatch,'gi'); 
     return place.city.match(regex) || place.state.match(regex);
   });
 }
 
-function numberWithCommas(x){
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+function generateHTML(cities){
+  const entry = cities.map((city) => {
+    return `<li><span>${city.city}</span><span>${city.state}</span><span>${city.population}</span></li>`;
+  });
+  return entry.join("");
 }
 
-function displayMatches(){
-  const matchArray = findMatches(this.value, cities)
-  const html = matchArray.map(place => {
-    const regex = new RegExp(this.value, 'gi');
-    const cityName = place.city.replace(regex,`<span class="hl">${this.value}</span>`)
-    const stateName = place.state.replace(regex,`<span class="hl">${this.value}</span>`)
-    return `
-      <li>
-        <span class="name">${cityName}, ${stateName}</span>
-        <span class="population">${numberWithCommas(place.population)}</span>
-      </li>
-    `;
-  }).join('');
-  suggestions.innerHTML = html;
+function render(target, htmlContent){
+  if (target.innerHTML === htmlContent) return ;
+  target.innerHTML = htmlContent;
 }
+
+function generateResult(){
+  const cache = new Map();
+  return (text, cities) => {
+    if (cache.has(text)) {
+      return cache.get(text);
+    }
+    const matches = findMatches(text, cities);
+    const htmlContent = generateHTML(matches);
+    cache.set(text, htmlContent);
+    return htmlContent;
+  }
+}
+
+(async function(){
+  const cities = await fetchCities();
+  const searchInput = document.querySelector('.search');
+  const displayTarget = document.querySelector('.suggestions');
+  const htmlContent = generateResult();
+
+  searchInput.addEventListener('keyup', (e) => {
+    const text = event.target.value;
+
+    if (text.length < 2) return;
+    
+    render(displayTarget, htmlContent(text, cities));
+  });
+})();
  
-const searchInput = document.querySelector('.search');
-const suggestions = document.querySelector('.suggestions');
-
-searchInput.addEventListener('change', displayMatches);
-searchInput.addEventListener('keyup', displayMatches);
-
 </script>  
 </body>
 </html>
