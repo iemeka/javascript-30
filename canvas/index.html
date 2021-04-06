@@ -7,56 +7,72 @@
 <body>
 <canvas id="draw" width="800" height="800"></canvas>
 <script>
-
-const canvas = document.querySelector('#draw');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-ctx.strokeStyle = '#BADASS';
-ctx.lineJoin = 'round'; // where one line meets with another
-ctx.lineCap = 'round'; // the end of one line
-ctx.lineWidth = 100;
-ctx.globalCompositeOperation = 'luminosity' // blend mode;
-
-
-let isDrawing = false;
-let lastX = 0;
-let lastY = 0;
-let hue = 0;
-let direction = true;
-
-function draw(e){
-  if (!isDrawing) return;
-  ctx.strokeStyle = `hsl(${hue}, 100%, 50%)` // hue, saturation , lightness
   
-  ctx.beginPath();
-  ctx.moveTo(lastX, lastY); // start point
-  ctx.lineTo(e.offsetX, e.offsetY) // end point
-  ctx.stroke(); // draw line
-  [lastX, lastY] = [e.offsetX, e.offsetY] // continuously updating start point after each stroke
-  hue++; // on each strock increase the hue to gradually fade into other colors - this show's how fast this function runs
-  hue = hue >= 360 ? 0 : hue; // without this it still goes round picking from start again.
+  const canvas = (function(){
+    const canvas = document.querySelector('#draw');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    return canvas;
+  }());
 
-  if (ctx.lineWidth >= 500 || ctx.lineWidth <= 1){
-    direction = !direction; // flip direction - True , False
+  const contex = (function context(){
+    const ctx = canvas.getContext('2d');
+    ctx.strokeStyle = '#BADASS';
+    ctx.lineJoin = 'round'; // where one line meets with another
+    ctx.lineCap = 'round'; // the end of one line
+    ctx.lineWidth = 100;
+    ctx.globalCompositeOperation = 'luminosity' // blend mode;
+    return ctx;
+  }());
+
+  const ctrVal = {
+    isDrawing : false,
+    lastX : 0,
+    lastY : 0,
+    hue : 0,
+    direction : true
   }
-  if (direction){ // if direction is true increament else decrease
-    ctx.lineWidth++;
-  } else {
-    ctx.lineWidth--;
+
+  function flipDirection(){
+    if (contex.lineWidth >= 500 || contex.lineWidth <= 1){
+      ctrVal.direction = !ctrVal.direction; // flip direction - True , False
+    }
+  }
+
+  function contextLineWidth(){
+    if (ctrVal.direction){ // if direction is true increament else decrease
+      contex.lineWidth++;
+    } else {
+      contex.lineWidth--;
+    }
+  }
+
+  function draw(e){
+    if (!ctrVal.isDrawing) return;
+
+    contex.strokeStyle = `hsl(${ctrVal.hue}, 100%, 50%)` // hue, saturation , lightness
+    contex.beginPath();
+    contex.moveTo(ctrVal.lastX, ctrVal.lastY); // start point
+    contex.lineTo(e.offsetX, e.offsetY) // end point
+    contex.stroke(); // draw line
+    [ctrVal.lastX, ctrVal.lastY] = [e.offsetX, e.offsetY] // continuously updating start point after each stroke
+    ctrVal.hue++; // on each strock increase the hue to gradually fade into other colors - this show's how fast this function runs
+    ctrVal.hue = ctrVal.hue >= 360 ? 0 : ctrVal.hue; // without this it still goes round picking from start again.
+
+    flipDirection()
+    contextLineWidth() 
   }
   
-
-}
-
-canvas.addEventListener('mousedown', (e) => {
-  isDrawing = true;
-  [lastX, lastY] = [e.offsetX, e.offsetY]; // on mouse down update start point to current mouse position. dont continue from point where previous line ends.
-});
-canvas.addEventListener('mousemove', draw);
-canvas.addEventListener('mouseup', () => isDrawing = false);
-canvas.addEventListener('mouseout', () => isDrawing = false);
-
+  (function addListeners(){
+    canvas.addEventListener('mousedown', (e) => {
+    ctrVal.isDrawing = true;
+    [ctrVal.lastX, ctrVal.lastY] = [e.offsetX, e.offsetY]; // on mouse down update start point to current mouse position. dont continue from point where previous line ends.
+    });
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', () => ctrVal.isDrawing = false);
+    canvas.addEventListener('mouseout', () => ctrVal.isDrawing = false); 
+  }());
+    
 
 </script>
 
