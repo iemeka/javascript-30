@@ -21,7 +21,7 @@
     ctx.lineJoin = 'round'; // where one line meets with another
     ctx.lineCap = 'round'; // the end of one line
     ctx.lineWidth = 100;
-    ctx.globalCompositeOperation = 'luminosity' // blend mode;
+    ctx.globalCompositeOperation = 'luminosity'; // blend mode;
     return ctx;
   }());
 
@@ -50,17 +50,17 @@
   function draw(e){
     if (!ctrVal.isDrawing) return;
 
-    contex.strokeStyle = `hsl(${ctrVal.hue}, 100%, 50%)` // hue, saturation , lightness
+    contex.strokeStyle = `hsl(${ctrVal.hue}, 100%, 50%)`; // hue, saturation , lightness
     contex.beginPath();
     contex.moveTo(ctrVal.lastX, ctrVal.lastY); // start point
-    contex.lineTo(e.offsetX, e.offsetY) // end point
+    contex.lineTo(e.offsetX, e.offsetY); // end point
     contex.stroke(); // draw line
-    [ctrVal.lastX, ctrVal.lastY] = [e.offsetX, e.offsetY] // continuously updating start point after each stroke
+    [ctrVal.lastX, ctrVal.lastY] = [e.offsetX, e.offsetY]; // continuously updating start point after each stroke
     ctrVal.hue++; // on each strock increase the hue to gradually fade into other colors - this show's how fast this function runs
     ctrVal.hue = ctrVal.hue >= 360 ? 0 : ctrVal.hue; // without this it still goes round picking from start again.
 
-    flipDirection()
-    contextLineWidth() 
+    flipDirection();
+    contextLineWidth();
   }
   
   (function addListeners(){
