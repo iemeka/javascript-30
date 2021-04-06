@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+</head>
+<body>
+<canvas id="draw" width="800" height="800"></canvas>
+<script>
+
+const canvas = document.querySelector('#draw');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+ctx.strokeStyle = '#BADASS';
+ctx.lineJoin = 'round'; // where one line meets with another
+ctx.lineCap = 'round'; // the end of one line
+ctx.lineWidth = 100;
+ctx.globalCompositeOperation = 'luminosity' // blend mode;
+
+
+let isDrawing = false;
+let lastX = 0;
+let lastY = 0;
+let hue = 0;
+let direction = true;
+
+function draw(e){
+  if (!isDrawing) return;
+  ctx.strokeStyle = `hsl(${hue}, 100%, 50%)` // hue, saturation , lightness
+  
+  ctx.beginPath();
+  ctx.moveTo(lastX, lastY); // start point
+  ctx.lineTo(e.offsetX, e.offsetY) // end point
+  ctx.stroke(); // draw line
+  [lastX, lastY] = [e.offsetX, e.offsetY] // continuously updating start point after each stroke
+  hue++; // on each strock increase the hue to gradually fade into other colors - this show's how fast this function runs
+  hue = hue >= 360 ? 0 : hue; // without this it still goes round picking from start again.
+
+  if (ctx.lineWidth >= 500 || ctx.lineWidth <= 1){
+    direction = !direction; // flip direction - True , False
+  }
+  if (direction){ // if direction is true increament else decrease
+    ctx.lineWidth++;
+  } else {
+    ctx.lineWidth--;
+  }
+  
+
+}
+
+canvas.addEventListener('mousedown', (e) => {
+  isDrawing = true;
+  [lastX, lastY] = [e.offsetX, e.offsetY]; // on mouse down update start point to current mouse position. dont continue from point where previous line ends.
+});
+canvas.addEventListener('mousemove', draw);
+canvas.addEventListener('mouseup', () => isDrawing = false);
+canvas.addEventListener('mouseout', () => isDrawing = false);
+
+
+</script>
+
+<style>
+  html, body {
+    margin: 0;
+  }
+</style>
+
+</body>
+</html>
