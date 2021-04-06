@@ -9,13 +9,13 @@
 <script>
   
   const canvas = (function(){
-    const canvas = document.querySelector('#draw');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    return canvas;
+    const canvasObj = document.querySelector('#draw');
+    canvasObj.width = window.innerWidth;
+    canvasObj.height = window.innerHeight;
+    return canvasObj;
   }());
 
-  const contex = (function context(){
+  const contex = (function(){
     const ctx = canvas.getContext('2d');
     ctx.strokeStyle = '#BADASS';
     ctx.lineJoin = 'round'; // where one line meets with another
@@ -63,7 +63,7 @@
     contextLineWidth();
   }
   
-  (function addListeners(){
+  (function(){
     canvas.addEventListener('mousedown', (e) => {
     ctrVal.isDrawing = true;
     [ctrVal.lastX, ctrVal.lastY] = [e.offsetX, e.offsetY]; // on mouse down update start point to current mouse position. dont continue from point where previous line ends.
