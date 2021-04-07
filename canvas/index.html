@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+</head>
+<body>
+<input type="color" id="pallet">
+<input type="range" min="2" max="10" id="lineWidth" step="2">
+<canvas id="draw" width="800" height="800" ></canvas>
+
+<script>
+
+  class Board {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.isDrawing = false;
+      this.canvas.width = window.innerWidth;
+      this.canvas.height = window.innerHeight;
+      this.direction = true;
+      this.lastX = 0;
+      this.lastY = 0;
+      this.hue = 0;
+      const colorInput = document.querySelector('#pallet');
+      const lineWidth = document.querySelector('#lineWidth');
+
+
+      this.canvas.addEventListener('mousedown', (e) => {
+        this.isDrawing = true;
+        this.lastX = e.offsetX;
+        this.lastY = e.offsetY;
+      });
+      this.canvas.addEventListener('mousemove', this.draw.bind(this));
+      this.canvas.addEventListener('mouseup', () => {
+        this.isDrawing = false;
+      });
+      this.canvas.addEventListener('mouseout', () => {
+        this.isDrawing = false;
+      }); 
+
+      this.ctx = this.canvas.getContext('2d');
+      this.ctx.strokeStyle = '#BADASS';
+      this.ctx.lineJoin = 'round'; // where one line meets with another
+      this.ctx.lineCap = 'round'; // the end of one line
+      this.ctx.lineWidth = 2;
+      this.ctx.globalCompositeOperation = 'luminosity'; // blend mode;
+
+      lineWidth.addEventListener('change', (e) => {
+        this.ctx.lineWidth = e.target.value;
+      });
+
+      colorInput.addEventListener('change', (e) => {
+        this.ctx.strokeStyle = e.target.value;
+      });
+    }
+
+    draw(e) {
+      if (!this.isDrawing) return;
+
+      this.ctx.beginPath();
+      this.ctx.moveTo(this.lastX, this.lastY); // start point
+      this.ctx.lineTo(e.offsetX, e.offsetY); // end point
+      this.ctx.stroke(); // draw line
+
+      this.lastX = e.offsetX;
+      this.lastY = e.offsetY;
+      this.hue++; // on each strock increase the hue to gradually fade into other colors - this show's how fast this function runs
+      this.hue = this.hue >= 360 ? 0 : this.hue; // without this it still goes round picking from start again.
+
+      this.flipDirection();
+      // this.modifyContextLineWidth();
+    }
+
+    flipDirection(){
+      if (this.ctx.lineWidth >= 500 || this.ctx.lineWidth <= 1){
+        this.direction = !this.direction; // flip direction - True , False
+      }
+    }
+
+    // modifyContextLineWidth(){
+    //   if (this.direction){ // if direction is true increament else decrease
+    //     this.ctx.lineWidth++;
+    //   } else {
+    //     this.ctx.lineWidth--;
+    //   }
+    // }
+  }
+  
+  (function(){
+    const board = new Board(document.querySelector('#draw'));
+  })();
+    
+
+</script>
+
+<style>
+  html, body {
+    margin: 0;
+  }
+  
+  #draw{
+    border:2px solid red;
+  }
+</style>
+
+</body>
+</html>
