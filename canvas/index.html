@@ -5,73 +5,90 @@
   <title>HTML5 Canvas</title>
 </head>
 <body>
-<canvas id="draw" width="800" height="800"></canvas>
+<input type="color" id="pallet">
+<input type="range" min="2" max="10" id="lineWidth" step="2">
+<canvas id="draw" width="800" height="800" ></canvas>
+
 <script>
-  
-  const canvas = (function(){
-    const canvasObj = document.querySelector('#draw');
-    canvasObj.width = window.innerWidth;
-    canvasObj.height = window.innerHeight;
-    return canvasObj;
-  }());
 
-  const contex = (function(){
-    const ctx = canvas.getContext('2d');
-    ctx.strokeStyle = '#BADASS';
-    ctx.lineJoin = 'round'; // where one line meets with another
-    ctx.lineCap = 'round'; // the end of one line
-    ctx.lineWidth = 100;
-    ctx.globalCompositeOperation = 'luminosity'; // blend mode;
-    return ctx;
-  }());
+  class Board {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.isDrawing = false;
+      this.canvas.width = window.innerWidth;
+      this.canvas.height = window.innerHeight;
+      this.direction = true;
+      this.lastX = 0;
+      this.lastY = 0;
+      this.hue = 0;
+      const colorInput = document.querySelector('#pallet');
+      const lineWidth = document.querySelector('#lineWidth');
 
-  const ctrVal = {
-    isDrawing : false,
-    lastX : 0,
-    lastY : 0,
-    hue : 0,
-    direction : true
-  }
 
-  function flipDirection(){
-    if (contex.lineWidth >= 500 || contex.lineWidth <= 1){
-      ctrVal.direction = !ctrVal.direction; // flip direction - True , False
+      this.canvas.addEventListener('mousedown', (e) => {
+        this.isDrawing = true;
+        this.lastX = e.offsetX;
+        this.lastY = e.offsetY;
+      });
+      this.canvas.addEventListener('mousemove', this.draw.bind(this));
+      this.canvas.addEventListener('mouseup', () => {
+        this.isDrawing = false;
+      });
+      this.canvas.addEventListener('mouseout', () => {
+        this.isDrawing = false;
+      }); 
+
+      this.ctx = this.canvas.getContext('2d');
+      this.ctx.strokeStyle = '#BADASS';
+      this.ctx.lineJoin = 'round'; // where one line meets with another
+      this.ctx.lineCap = 'round'; // the end of one line
+      this.ctx.lineWidth = 2;
+      this.ctx.globalCompositeOperation = 'luminosity'; // blend mode;
+
+      lineWidth.addEventListener('change', (e) => {
+        this.ctx.lineWidth = e.target.value;
+      });
+
+      colorInput.addEventListener('change', (e) => {
+        this.ctx.strokeStyle = e.target.value;
+      });
     }
-  }
 
-  function contextLineWidth(){
-    if (ctrVal.direction){ // if direction is true increament else decrease
-      contex.lineWidth++;
-    } else {
-      contex.lineWidth--;
+    draw(e) {
+      if (!this.isDrawing) return;
+
+      this.ctx.beginPath();
+      this.ctx.moveTo(this.lastX, this.lastY); // start point
+      this.ctx.lineTo(e.offsetX, e.offsetY); // end point
+      this.ctx.stroke(); // draw line
+
+      this.lastX = e.offsetX;
+      this.lastY = e.offsetY;
+      this.hue++; // on each strock increase the hue to gradually fade into other colors - this show's how fast this function runs
+      this.hue = this.hue >= 360 ? 0 : this.hue; // without this it still goes round picking from start again.
+
+      this.flipDirection();
+      // this.modifyContextLineWidth();
     }
-  }
 
-  function draw(e){
-    if (!ctrVal.isDrawing) return;
+    flipDirection(){
+      if (this.ctx.lineWidth >= 500 || this.ctx.lineWidth <= 1){
+        this.direction = !this.direction; // flip direction - True , False
+      }
+    }
 
-    contex.strokeStyle = `hsl(${ctrVal.hue}, 100%, 50%)`; // hue, saturation , lightness
-    contex.beginPath();
-    contex.moveTo(ctrVal.lastX, ctrVal.lastY); // start point
-    contex.lineTo(e.offsetX, e.offsetY); // end point
-    contex.stroke(); // draw line
-    [ctrVal.lastX, ctrVal.lastY] = [e.offsetX, e.offsetY]; // continuously updating start point after each stroke
-    ctrVal.hue++; // on each strock increase the hue to gradually fade into other colors - this show's how fast this function runs
-    ctrVal.hue = ctrVal.hue >= 360 ? 0 : ctrVal.hue; // without this it still goes round picking from start again.
-
-    flipDirection();
-    contextLineWidth();
+    // modifyContextLineWidth(){
+    //   if (this.direction){ // if direction is true increament else decrease
+    //     this.ctx.lineWidth++;
+    //   } else {
+    //     this.ctx.lineWidth--;
+    //   }
+    // }
   }
   
   (function(){
-    canvas.addEventListener('mousedown', (e) => {
-    ctrVal.isDrawing = true;
-    [ctrVal.lastX, ctrVal.lastY] = [e.offsetX, e.offsetY]; // on mouse down update start point to current mouse position. dont continue from point where previous line ends.
-    });
-    canvas.addEventListener('mousemove', draw);
-    canvas.addEventListener('mouseup', () => ctrVal.isDrawing = false);
-    canvas.addEventListener('mouseout', () => ctrVal.isDrawing = false); 
-  }());
+    const board = new Board(document.querySelector('#draw'));
+  })();
     
 
 </script>
@@ -79,6 +96,10 @@
 <style>
   html, body {
     margin: 0;
+  }
+  
+  #draw{
+    border:2px solid red;
   }
 </style>
 
