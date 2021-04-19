@@ -97,8 +97,8 @@
 
 <script>
   (function(){
-    var prevIndex;
-    var pressedShift = false;
+    let prevIndex;
+    let pressedShift = false;
     const inputs = Array.from(document.querySelectorAll('input'));
     // create table to store obj and their index
     // const indexTable = {};
@@ -119,9 +119,9 @@
 
       if (pressedShift){
         pressedShift = false;
-        var curIndex = inputs.indexOf(e.target);
-        var start = curIndex >= prevIndex ? prevIndex : curIndex;
-        var end = curIndex >= prevIndex ? curIndex : prevIndex;
+        let curIndex = inputs.indexOf(e.target);
+        let start = curIndex >= prevIndex ? prevIndex : curIndex;
+        let end = curIndex >= prevIndex ? curIndex : prevIndex;
         if (start != end) checkRange(start, end);
       } 
       prevIndex = inputs.indexOf(e.target);
