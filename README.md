@@ -1,4 +1,4 @@
-### Javascript projects.
+### Javascript projects
 
 - [Ajax Type-Ahead](https://iemeka.github.io/javascript-projects/ajax-type-ahead/)
 
@@ -24,7 +24,7 @@
 
 - [Copy-vs-ref](https://iemeka.github.io/javascript-projects/copy-vs-ref/)
 
-- [Css-variables](https://iemeka.github.io/javascript-projects/css-variables/)
+- [CSS-variables](https://iemeka.github.io/javascript-projects/css-variables/)
 
 - [Dev tool tricks](https://iemeka.github.io/javascript-projects/dev-tools-tricks/)
 
