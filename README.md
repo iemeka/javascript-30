@@ -34,7 +34,7 @@
 
 - [Key-sequence](https://iemeka.github.io/javascript-projects/key-seq/)
 
-- [Kort](https://iemeka.github.io/javascript-projects/sort/)
+- [Sort](https://iemeka.github.io/javascript-projects/sort/)
 
 - [Tally string with reduce](https://iemeka.github.io/javascript-projects/tally-string-with-reduce/)
 
