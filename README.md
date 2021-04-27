@@ -22,22 +22,9 @@
 
 - [Video player](https://iemeka.github.io/javascript-projects/video-player/)
 
-- [Copy-vs-ref](https://iemeka.github.io/javascript-projects/copy-vs-ref/)
-
 - [CSS-variables](https://iemeka.github.io/javascript-projects/css-variables/)
 
-- [Dev tool tricks](https://iemeka.github.io/javascript-projects/dev-tools-tricks/)
-
 - [Key-sequence](https://iemeka.github.io/javascript-projects/key-seq/)
-
-- [Sort](https://iemeka.github.io/javascript-projects/sort/)
-
-- [Array-2](https://iemeka.github.io/javascript-projects/array-2/)
-
-- [Arrays](https://iemeka.github.io/javascript-projects/arrays/)
-
-- [Tally string with reduce](https://iemeka.github.io/javascript-projects/tally-string-with-reduce/)
-
 
 
 
