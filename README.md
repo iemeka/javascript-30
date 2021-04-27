@@ -1,42 +1,44 @@
-### Javascript Projects
+### Javascript projects.
 
 - [Ajax Type-Ahead](https://iemeka.github.io/javascript-projects/ajax-type-ahead/)
 
-https://iemeka.github.io/javascript-projects/array-2/
+- [local storage](https://iemeka.github.io/javascript-projects/local-storage/)
 
-https://iemeka.github.io/javascript-projects/arrays/
+- [canvas](https://iemeka.github.io/javascript-projects/canvas/)
 
-https://iemeka.github.io/javascript-projects/canvas/
+- [clock](https://iemeka.github.io/javascript-projects/clock/)
 
-https://iemeka.github.io/javascript-projects/clock/
+- [array-2](https://iemeka.github.io/javascript-projects/array-2/)
 
-https://iemeka.github.io/javascript-projects/copy-vs-ref/
+- [arrays](https://iemeka.github.io/javascript-projects/arrays/)
 
-https://iemeka.github.io/javascript-projects/css-variables/
+- [drumkit](https://iemeka.github.io/javascript-projects/drumkit/)
 
-https://iemeka.github.io/javascript-projects/dev-tools-tricks/
+- [flex-panel](https://iemeka.github.io/javascript-projects/flex-panel/)
 
-https://iemeka.github.io/javascript-projects/drumkit/
+- [mouse move effect](https://iemeka.github.io/javascript-projects/mouse-move-effect/)
 
-https://iemeka.github.io/javascript-projects/flex-panel/
+- [shift select](https://iemeka.github.io/javascript-projects/shift-select/)
 
-https://iemeka.github.io/javascript-projects/key-seq/
+- [webcam](https://iemeka.github.io/javascript-projects/webcam/)
 
-https://iemeka.github.io/javascript-projects/local-storage/
+- [slide in scroll](https://iemeka.github.io/javascript-projects/slide-in-scroll/)
 
-https://iemeka.github.io/javascript-projects/mouse-move-effect/
+- [video player](https://iemeka.github.io/javascript-projects/video-player/)
 
-https://iemeka.github.io/javascript-projects/shift-select/
+- [copy-vs-ref](https://iemeka.github.io/javascript-projects/copy-vs-ref/)
 
-https://iemeka.github.io/javascript-projects/slide-in-scroll/
+- [css-variables](https://iemeka.github.io/javascript-projects/css-variables/)
 
-https://iemeka.github.io/javascript-projects/sort/
+- [dev tool tricks](https://iemeka.github.io/javascript-projects/dev-tools-tricks/)
 
-https://iemeka.github.io/javascript-projects/tally-string-with-reduce/
+- [key-sequence](https://iemeka.github.io/javascript-projects/key-seq/)
 
-https://iemeka.github.io/javascript-projects/video-player/
+- [sort](https://iemeka.github.io/javascript-projects/sort/)
 
-https://iemeka.github.io/javascript-projects/webcam/
+- [tally string with reduce](https://iemeka.github.io/javascript-projects/tally-string-with-reduce/)
+
+
 
 
 
