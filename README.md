@@ -1,6 +1,6 @@
 ### Javascript projects.
 
-https://iemeka.github.io/javascript-projects/ajax-type-ahead/
+- [Ajax Type-Ahead](https://iemeka.github.io/javascript-projects/ajax-type-ahead/)
 
 https://iemeka.github.io/javascript-projects/array-2/
 
