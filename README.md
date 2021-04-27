@@ -8,10 +8,6 @@
 
 - [Clock](https://iemeka.github.io/javascript-projects/clock/)
 
-- [Array-2](https://iemeka.github.io/javascript-projects/array-2/)
-
-- [Arrays](https://iemeka.github.io/javascript-projects/arrays/)
-
 - [Drumkit](https://iemeka.github.io/javascript-projects/drumkit/)
 
 - [Flex-panel](https://iemeka.github.io/javascript-projects/flex-panel/)
@@ -35,6 +31,10 @@
 - [Key-sequence](https://iemeka.github.io/javascript-projects/key-seq/)
 
 - [Sort](https://iemeka.github.io/javascript-projects/sort/)
+
+- [Array-2](https://iemeka.github.io/javascript-projects/array-2/)
+
+- [Arrays](https://iemeka.github.io/javascript-projects/arrays/)
 
 - [Tally string with reduce](https://iemeka.github.io/javascript-projects/tally-string-with-reduce/)
 
