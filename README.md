@@ -1,4 +1,4 @@
-### Javascript projects.
+### Javascript Projects
 
 - [Ajax Type-Ahead](https://iemeka.github.io/javascript-projects/ajax-type-ahead/)
 
